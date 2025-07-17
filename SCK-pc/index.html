@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./images/HEhover.png">
+    <title>SCK游戏</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./iconfont/iconfont.css">
+</head>
+<body>
+    <!-- 项目基本构成
+    study
+    images文件夹：存放固定使用的图片素材，例如：logo、样式修饰图等等
+    uploads文件夹：存放非固定使用的图片素材，例如：商品图、宣传图需要上传的图片 
+    css文件夹：存放CSS文件（link标签引入）
+        base.css：基础公共样式，例如：清除默认样式、设置网页基本样式 
+        index.css：首页CSS样式 
+    index.html：首页HTML文件  
+    -->
+    
+    <!-- header区域布局 -->
+    <!-- header->wrapper版心->logo+nav+search+user -->
+    <div class="header">
+        <div class="wrapper">
+            <!-- 头部logo (链接跳转，h1强调)-->
+            <div class="logo">
+                <h1><a href="#">SCK游戏</a></h1>
+            </div>
+            <!-- 导航 -->
+            <div class="nav">
+                <ul>
+                    <li><a href="#" class="active">首页</a></li>
+                    <li><a href="#">角色</a></li>
+                    <li><a href="#">故事</a></li>
+                    <li><a href="#">作者</a></li>
+                </ul>
+            </div>
+            <!-- 搜索 -->
+            <div class="search">
+                <input type="text" placeholder="搜索">
+                <a href="#"></a>
+            </div>
+            <!-- 用户 -->
+            <div class="user">
+                <a href="https://www.bilibili.com/video/BV1GJ411x7h7/?spm_id_from=333.337.search-card.all.click&vd_source=96b6178ca8f342b909ea5765c8aa99af" target="_blank">
+                    <div></div>
+                    <span>起重机鹤师傅</span>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- banner区域布局 -->
+    <!-- banner->wrapper版心->图片+文字 -->
+    <div class="banner">
+        <div class="wrapper">
+            <div class="left">
+                <!-- 左版心->ul->li->a -->
+                <ul>
+                    <li><a href="#">快速开始</a></li>
+                    <li><a href="#">角色介绍</a></li>
+                    <li><a href="#">阿瑞的私房照</a></li>
+                    <li><a href="#">教堂</a></li>
+                    <li><a href="#">鹤师傅画廊</a></li>
+                </ul>
+            </div>
+            <div class="center">
+                <!-- 左切换按钮 -->
+                <button class="prev">
+                    <i class="iconfont icon-fanhui"></i>
+                </button>
+                <!-- 中心图 -->
+                <img src="./images/banners/banner2.png" alt="">
+                <!-- 右切换按钮 -->
+                <button class="next">
+                    <i class="iconfont icon-jinru"></i>
+                </button>
+                <!-- 小圆点 -->
+                <ul>
+                    <li class="active"></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <div class="right">
+                <h4>版本热点</h4>
+                <dl class="content">
+                    <a href="#">
+                        <dt>CrazyFish加强</dt>
+                        <dd>
+                            <span>New</span>
+                            <span>技能全新升级</span>
+                        </dd>
+                    </a>
+                    <hr>
+                    <a href="#">
+                        <dt>新活动</dt>
+                        <dd>
+                            <span>New</span>
+                            <span>为真神传颂教义</span>
+                        </dd>
+                    </a>
+                    <hr>
+                    <a href="#">
+                        <dt>全新剧情</dt>
+                        <dd>
+                            <span>New</span>
+                            <span>在校园的一角邂逅鹤师傅</span>
+                        </dd>
+                    </a>
+                    <hr>
+                    <a href="#" class="button">了解更多</a>
+                </dl>
+            </div>
+        </div>
+    </div>
+    
+<!-- banner脚本 -->
+    <script>
+    let banners=[
+        {loc: './images/banners/banner2.png'},
+        {loc: './images/banners/silyH.png'},
+        {loc: './images/banners/茜茜.png'},
+        {loc: './images/banners/雪菲.png'}
+    ]
+    
+    function change(i){
+        document.querySelector('.center .active').classList.remove('active');
+        document.querySelector(`.center li:nth-child(${i+1})`).classList.add('active');
+        
+        const pic = document.querySelector('.center img');
+        pic.src = banners[i].loc;
+    }
+
+    let i=0;
+    
+    
+    //下一张
+    const next = document.querySelector('.center .next');
+    next.addEventListener('click',function(){
+        i++;
+        i%=banners.length;
+        change(i);
+    });
+    //定时自动下一张
+    let timer=setInterval(function(){
+        next.click();
+    },2000);
+    //上一张
+    const prev = document.querySelector('.center .prev');
+    prev.addEventListener('click',function(){
+        i--;
+        if(i<0)i=banners.length-1;
+
+        change(i);
+    });
+
+    //暂停播放
+    const banner = document.querySelector('.center');
+    banner.addEventListener('mouseenter',function(){
+        clearInterval(timer);
+    });
+    //恢复播放
+    banner.addEventListener('mouseleave',function(){
+        clearInterval(timer);
+        timer=setInterval(function(){next.click();},2000);
+    });
+    </script>
+
+    <!-- recommend区域布局 -->
+    <!-- recommend->wrapper版心->h3+ul+li*3 -->
+    <div class="recommend wrapper">
+        <h4>快捷跳转</h4>
+        <ul>
+            <li><a href="#">地图工具
+                <img src="./images/xia1.png" alt="">
+            </a></li>
+            <li><a href="">签到福利
+                <img src="./images/xia2.png" alt="">
+            </a></li>
+            <li><a href="">社区交流
+                <img src="./images/xia3.png" alt="">
+            </a></li>
+            <li><a href="">精品二创
+                <img src="./images/xia4.png" alt="">
+            </a></li>
+        </ul>
+        <h4>更多内容</h4>
+    </div>
+
+    <!-- 推荐区域悬停脚本   bug待修！！！-->
+    <script>
+        const imgs=document.querySelectorAll('.recommend img');
+        let srcs=[];
+        for(let i=0;i<imgs.length;i++){
+            srcs[i]=imgs[i].src;
+            imgs[i].addEventListener('mouseenter',function(){
+                imgs[i].src='./images/HEhover.png';
+                imgs[i].classList.add('recommend active');
+            })
+            imgs[i].addEventListener('mouseleave',function(){
+                imgs[i].src=srcs[i];
+                imgs[i].classList.remove('recommend active');
+            })
+        }
+
+    </script>
+
+
+    <!-- character区域布局 -->
+    <div class="character wrapper">
+        <!-- 标题区域 -->
+        <div class="hd">
+            <h4>热门角色</h4>
+            <a href="#" class="more">查看全部</a>
+        </div>
+        <!-- 主体区域 -->
+        <div class="bd">
+            <ul>
+                <!-- 1 -->
+                <li>
+                    <a href="#">
+                        <div class="pic">
+                            <img src="./uploads/c2.png" width="180px" alt="">
+                        </div>
+                        <div class="text">
+                            <h5>小峡<br>鹤师傅的造物，擅长在他人的装备区搞破坏</h5>
+                            <p>
+                                <span>即将上线</span>-
+                                <i>10086</i>
+                                <span>人已浏览</span>
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <!-- 2 -->
+                <li>
+                    <a href="#">
+                        <div class="pic">
+                            <img src="./uploads/c0.png" width="270px" alt="">
+                        </div>
+                        <div class="text">
+                            <h5>三元纸币<br>鹤师傅的头像印刷币，收藏价值极高</h5>
+                            <p>
+                                <span>即将上线</span>-
+                                <i>114514</i>
+                                <span>人已浏览</span>
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <!-- 3 -->
+                <li>
+                    <a href="#">
+                        <div class="pic">
+                            <img src="./uploads/c0.png" width="180px" alt="">
+                        </div>
+                        <div class="text">
+                            <h5>三元纸币<br>鹤师傅的头像印刷币，收藏价值极高</h5>
+                            <p>
+                                <span>即将上线</span>-
+                                <i>114514</i>
+                                <span>人已浏览</span>
+                            </p>
+                        </div>
+                    </a>
+                </li> 
+                <!-- 4 -->
+                <li>
+                    <a href="#">
+                        <div class="pic">
+                            <img src="./uploads/c0.png" width="180px" alt="">
+                        </div>
+                        <div class="text">
+                            <h5>三元纸币<br>鹤师傅的头像印刷币，收藏价值极高</h5>
+                            <p>
+                                <span>即将上线</span>-
+                                <i>114514</i>
+                                <span>人已浏览</span>
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <!-- 5 -->
+                <li>
+                    <a href="#">
+                        <div class="pic">
+                            <img src="./uploads/c0.png" width="180px" alt="">
+                        </div>
+                        <div class="text">
+                            <h5>三元纸币<br>鹤师傅的头像印刷币，收藏价值极高</h5>
+                            <p>
+                                <span>即将上线</span>-
+                                <i>114514</i>
+                                <span>人已浏览</span>
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+
+    <!-- 个性角色区域布局 -->
+    <div class="fslow wrapper">
+        <!-- 标题区域 -->
+        <div class="hd">
+            <h4>FSlow角色详情</h4>
+            <ul>
+                <li class="active">属性</li>
+                <li>故事</li>
+                <li>剧情</li>
+                <li>关系</li>
+            </ul>
+            <a href="#" class="more">查看全部</a>
+        </div>
+        <!-- 主体区域 -->
+        <div class="bd">
+            <div class="left">
+                <img src="./uploads/菲菲.png" width="150px" alt="">
+            </div>
+            <div class="right">
+                <div class="top">
+                    <img src="./images/star2.png" width="30px" alt="">
+                </div>
+                <div class="botomn">
+                    介绍什么的以后再说
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 版权区域布局 -->
+    <div class="footer">
+        <div class="wrapper">
+            <div class="left">
+                <img src="./images/logo.png" width="150px" alt="">
+                <p>
+                    本游戏内所有角色、形象、名称、商标均为虚构，不真实存在。<br>
+                    2025年 SCK为版权所有
+                </p>
+                <a href="https://www.bilibili.com/video/BV1GJ411x7h7/?spm_id_from=333.337.search-card.all.click&vd_source=96b6178ca8f342b909ea5765c8aa99af" target="_blank"><div class="download">下载游戏</div></a>
+            </div>
+            <div class="right">
+                <dl>
+                    <dt>联系我们</dt>
+                    <dd>邮箱：123456@qq.com</dd>
+                    <dd>QQ群：123456789</dd>
+                </dl>
+                <dl>
+                    <dt>关注我们</dt>
+                    <dd>微信公众号：SCK</dd>
+                    <dd>抖音账号：SCK</dd>
+                </dl>
+                <dl>
+                    <dt>特别鸣谢</dt>
+                    <dd>起重机鹤师傅</dd>
+                    <dd>搬运工阿瑞</dd>
+                    <dd>吉祥物</dd>
+                </dl>
+            </div>
+        </div>
+    </div> 
+</body>
